@@ -8,8 +8,8 @@
 ![build][build-badge]
 [![license][license-badge]][license-url]
 
-![Card - Dark Theme](https://github.com/unbekannt3/hass-room-card-minimalist/blob/main/docs/images/cards-dark.png?raw=true)
-![Card - Light Theme](https://github.com/unbekannt3/hass-room-card-minimalist/blob/main/docs/images/cards-light.png?raw=true)
+![Card - Dark Theme](https://github.com/unbekannt3/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-dark.png?raw=true)
+![Card - Light Theme](https://github.com/unbekannt3/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-light.png?raw=true)
 
 ## What is Room Card Minimalist
 
@@ -23,21 +23,21 @@ It provides a fixed size card with a room name, styled icon, and optional second
 
 Room Card is available in [HACS][hacs] (Home Assistant Community Store):
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=unbekannt3&repository=room-card-minimalist)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=unbekannt3&repository=room-card-minimalist-dbaronne)
 
-or search for "room-card-minimalist" in HACS.
+or search for "room-card-minimalist-dbaronne" in HACS.
 
 ### Manual
 
-1. Download `room-card-minimalist.js` file from the [latest release][release-url].
-2. Put `room-card-minimalist.js` file into your `config/www` folder.
-3. Add reference to `room-card-minimalist.js` in your Dashboard. There's two ways to do that:
-   - **Using UI:** _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _Url_ as `/local/room-card-minimalist.js` → Set _Resource type_ as `JavaScript Module`.
+1. Download `room-card-minimalist-dbaronne.js` file from the [latest release][release-url].
+2. Put `room-card-minimalist-dbaronne.js` file into your `config/www` folder.
+3. Add reference to `room-card-minimalist-dbaronne.js` in your Dashboard. There's two ways to do that:
+   - **Using UI:** _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _Url_ as `/local/room-card-minimalist-dbaronne.js` → Set _Resource type_ as `JavaScript Module`.
      **Note:** If you do not see the Resources menu, you will need to enable _Advanced Mode_ in your _User Profile_
    - **Using YAML:** Add following code to `lovelace` section.
      ```yaml
      resources:
-       - url: /local/room-card-minimalist.js
+       - url: /local/room-card-minimalist-dbaronne.js
          type: module
      ```
 
@@ -111,7 +111,7 @@ You can enable HTML in the secondary info text to apply custom styling like font
 **Basic example:**
 
 ```yaml
-type: custom:room-card-minimalist
+type: custom:room-card-minimalist-dbaronne
 name: Living Room
 icon: mdi:sofa
 secondary: '<span style="font-size: 16px; font-weight: bold; color: #FF5722;">22.5°C</span>'
@@ -151,7 +151,7 @@ You can make the secondary info text clickable to perform actions like opening t
 **Example - Show history dialog for temperature sensor:**
 
 ```yaml
-type: custom:room-card-minimalist
+type: custom:room-card-minimalist-dbaronne
 name: Living Room
 icon: mdi:sofa
 secondary: '{{states("sensor.living_room_temperature")}} °C'
@@ -163,7 +163,7 @@ secondary_tap_action:
 **Example - Navigate to climate dashboard:**
 
 ```yaml
-type: custom:room-card-minimalist
+type: custom:room-card-minimalist-dbaronne
 name: Living Room
 icon: mdi:sofa
 secondary: '{{states("sensor.living_room_temperature")}} °C'
@@ -230,12 +230,12 @@ The following color templates are available for `card_template`, `template_on`, 
 | `teal`        | ![#009688](https://dummyimage.com/15/009688/009688) Teal        | Teal color scheme `#009688`         |
 | `indigo`      | ![#3F51B5](https://dummyimage.com/15/3f51b5/3f51b5) Indigo      | Indigo color scheme `#3F51B5`       |
 
-These templates use CSS variables that can be customized in your Home Assistant theme. If UI Lovelace Minimalist or another theme is installed which provides the `--color-*` variables, the templates will use these colors. Otherwise, fallback colors are provided (see [src/room-card-minimalist.js](https://github.com/unbekannt3/room-card-minimalist/blob/main/src/room-card-minimalist.js) => const COLOR_TEMPLATES for details).
+These templates use CSS variables that can be customized in your Home Assistant theme. If UI Lovelace Minimalist or another theme is installed which provides the `--color-*` variables, the templates will use these colors. Otherwise, fallback colors are provided (see [src/room-card-minimalist-dbaronne.js](https://github.com/unbekannt3/room-card-minimalist-dbaronne/blob/main/src/room-card-minimalist-dbaronne.js) => const COLOR_TEMPLATES for details).
 
 ### YAML Example
 
 ```yaml
-type: custom:room-card-minimalist
+type: custom:room-card-minimalist-dbaronne
 name: Living Room
 icon: mdi:sofa
 card_template: blue
@@ -336,7 +336,7 @@ For local development make sure to have at least Node 22 installed (earlier vers
    npm run watch
    ```
 
-   This will create a webpack dev server on localhost:8080 which will serve the live built room-card-minimalist.js file.
+   This will create a webpack dev server on localhost:8080 which will serve the live built room-card-minimalist-dbaronne.js file.
 
 3. **Start the local Home Assistant dev instance:**
 
@@ -351,7 +351,7 @@ For local development make sure to have at least Node 22 installed (earlier vers
    - URL:
 
    ```bash
-   http://localhost:8080/room-card-minimalist.js
+   http://localhost:8080/room-card-minimalist-dbaronne.js
    ```
 
    - Type: JavaScript Module
@@ -368,16 +368,16 @@ For local development make sure to have at least Node 22 installed (earlier vers
 [homeassistant]: https://img.shields.io/badge/home%20assistant-%2341BDF5.svg?style=flat-square&logo=home-assistant&logoColor=white
 [hacs-url]: https://github.com/hacs/integration
 [hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
-[release-badge]: https://img.shields.io/github/v/release/unbekannt3/room-card-minimalist?style=flat-square
-[prerelease-badge]: https://img.shields.io/github/v/release/unbekannt3/room-card-minimalist?include_prereleases&style=flat-square&label=prerelease
-[downloads-badge]: https://img.shields.io/github/downloads/unbekannt3/room-card-minimalist/total?style=flat-square
-[build-badge]: https://img.shields.io/github/actions/workflow/status/unbekannt3/room-card-minimalist/build.yaml?branch=main&style=flat-square
-[license-badge]: https://img.shields.io/github/license/unbekannt3/room-card-minimalist?style=flat-square&logo=opensourceinitiative&logoColor=white&color=0080ff
+[release-badge]: https://img.shields.io/github/v/release/unbekannt3/room-card-minimalist-dbaronne?style=flat-square
+[prerelease-badge]: https://img.shields.io/github/v/release/unbekannt3/room-card-minimalist-dbaronne?include_prereleases&style=flat-square&label=prerelease
+[downloads-badge]: https://img.shields.io/github/downloads/unbekannt3/room-card-minimalist-dbaronne/total?style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/unbekannt3/room-card-minimalist-dbaronne/build.yaml?branch=main&style=flat-square
+[license-badge]: https://img.shields.io/github/license/unbekannt3/room-card-minimalist-dbaronne?style=flat-square&logo=opensourceinitiative&logoColor=white&color=0080ff
 
 <!-- References -->
 
 [home-assistant]: https://www.home-assistant.io/
 [home-assitant-theme-docs]: https://www.home-assistant.io/integrations/frontend/#defining-themes
 [hacs]: https://hacs.xyz
-[release-url]: https://github.com/unbekannt3/room-card-minimalist/releases
-[license-url]: https://github.com/unbekannt3/room-card-minimalist/blob/main/LICENSE
+[release-url]: https://github.com/unbekannt3/room-card-minimalist-dbaronne/releases
+[license-url]: https://github.com/unbekannt3/room-card-minimalist-dbaronne/blob/main/LICENSE

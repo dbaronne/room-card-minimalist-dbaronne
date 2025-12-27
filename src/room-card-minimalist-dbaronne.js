@@ -70,7 +70,7 @@ class RoomCard extends LitElement {
 	// distribute all cards over the available columns (https://developers.home-assistant.io/docs/frontend/custom-ui/custom-card#sizing-in-masonry-view).
 	getCardSize() {
 		// Card height is 200px, so return 4 (4 * 50px = 200px)
-		return 4;
+		return 3;
 	}
 
 	// Grid options for sections view - card takes specific size based on design
@@ -79,9 +79,9 @@ class RoomCard extends LitElement {
 			columns: 6, // Default to 6 columns (multiple of 3 as recommended)
 			min_columns: 6, // Minimum 6 columns for proper layout
 			max_columns: 12, // Can expand to full width
-			rows: 4, // Default to 4 rows (4 * 56px + gaps ≈ 200px)
-			min_rows: 4, // Fixed height, minimum 4 rows
-			max_rows: 4, // Fixed height, maximum 4 rows
+			rows: 3, // Default to 4 rows (4 * 56px + gaps ≈ 200px)
+			min_rows: 3, // Fixed height, minimum 4 rows
+			max_rows: 3, // Fixed height, maximum 4 rows
 		};
 	}
 
@@ -181,7 +181,7 @@ class RoomCard extends LitElement {
 
 	// Register our custom editor
 	static getConfigElement() {
-		return document.createElement('room-card-minimalist-editor');
+		return document.createElement('room-card-minimalist-dbaronne-editor');
 	}
 
 	// Provide stub config for preview
@@ -452,6 +452,10 @@ class RoomCard extends LitElement {
 
 	_isClimateEntity(entity) {
 		return entity && entity.startsWith('climate.');
+	}
+
+	_isCoverEntity(entity) {
+		return entity && entity.startsWith('cover.');
 	}
 
 	_applyTemplates(item, state, currentHvacMode = null) {
@@ -1286,7 +1290,7 @@ class RoomCard extends LitElement {
 	}
 }
 
-customElements.define('room-card-minimalist', RoomCard);
+customElements.define('room-card-minimalist-dbaronne', RoomCard);
 
 console.log(
 	`%c RoomCardMinimalist %c ${packageInfo.version}`,

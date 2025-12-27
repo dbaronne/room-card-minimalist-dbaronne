@@ -61,7 +61,7 @@
 			{
 				"assets": [
 					{
-						"path": "dist/room-card-minimalist.js",
+						"path": "dist/room-card-minimalist-dbaronne.js",
 						"label": "Room Card Minimalist"
 					}
 				]

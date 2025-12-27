@@ -1156,13 +1156,13 @@ class RoomCardEditor extends LitElement {
 	}
 }
 
-customElements.define('room-card-minimalist-editor', RoomCardEditor);
+customElements.define('room-card-minimalist-dbaronne-editor', RoomCardEditor);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-	type: 'room-card-minimalist',
+	type: 'room-card-minimalist-dbaronne',
 	name: 'Room Card Minimalist',
 	preview: true,
 	description: 'Display the state of a room at a glance - in UI Lovelace Minimalist style',
-	documentationURL: 'https://github.com/unbekannt3/room-card-minimalist',
+	documentationURL: 'https://github.com/unbekannt3/room-card-minimalist-dbaronne',
 });

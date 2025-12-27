@@ -1,2 +1,2 @@
-import './room-card-minimalist-editor.js';
-import './room-card-minimalist.js';
+import './room-card-minimalist-dbaronne-editor.js';
+import './room-card-minimalist-dbaronne.js';

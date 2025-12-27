@@ -8,7 +8,7 @@ module.exports = (env, argv) => {
 		entry: './src/index.js',
 		mode: argv.mode || 'development',
 		output: {
-			filename: 'room-card-minimalist.js',
+			filename: 'room-card-minimalist-dbaronne.js',
 			path: path.resolve(__dirname, 'dist'),
 			clean: true,
 		},
