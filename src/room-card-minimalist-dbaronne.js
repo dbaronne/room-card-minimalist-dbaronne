@@ -1008,7 +1008,7 @@ class RoomCard extends LitElement {
 				--main-color: rgb(var(--rgb-grey));
 				--icon-size: 84px;
 				--icon-background-size: 126px;
-				--state-icon-size: 16px;
+				--state-icon-size: 18px;
 				--state-item-size-height: 36px;
 				--card-primary-font-size: 18px;
 				--card-primary-font-weight: 600;
