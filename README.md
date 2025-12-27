@@ -187,8 +187,10 @@ secondary_hold_action:
 | `entity`               | string  | Required | Required if type is `entity`. The entity ID to monitor.                                                                      |
 | `on_state`             | string  | Required | Required if type is `entity` and not a climate entity. The state value that will be considered as "on".                      |
 | `condition`            | string  | Required | Required if type is `template`. Template that returns any value for "on" state, empty for "off".                             |
-| `color_on`             | string  | Optional | Color for entity icon when on. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).        |
-| `color_off`            | string  | Optional | Color for entity icon when off. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).       |
+| `icon_color_on`             | string  | Optional | Color for icon of entity when on. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).        |
+| `icon_color_off`            | string  | Optional | Color for icon of entity when off. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).   
+| `value_color_on`             | string  | Optional | Color for value of template when on. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).        |
+| `value_color_off`            | string  | Optional | Color for value of template when off. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).        |
 | `background_color_on`  | string  | Optional | Background color for entity when on. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).  |
 | `background_color_off` | string  | Optional | Background color for entity when off. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/). |
 | `template_on`          | string  | Optional | Color template to apply when entity is on (e.g., `blue`).                                                                    |
@@ -264,7 +266,7 @@ entities:
     icon_off: mdi:ceiling-light-outline
     on_state: 'on'
     use_light_color: true
-    color_off: grey
+    icon_color_off: grey
     tap_action:
       action: toggle
     hold_action:
@@ -276,19 +278,19 @@ entities:
       {% set lights_on = expand(area_entities('Living Room')) |
       selectattr('domain','eq','light') | selectattr('state','eq','on') | list |
       count %}{% if lights_on > 0 %}{{ lights_on }} lights on{% endif %}
-    color_on: yellow
+    icon_color_on: yellow
   - type: entity
     entity: binary_sensor.living_room_motion
     on_state: 'on'
     icon: mdi:motion-sensor
     icon_off: mdi:motion-sensor-off
-    color_on: green
+    icon_color_on: green
   - type: entity
     entity: climate.living_room
     icon: mdi:thermostat
     icon_off: mdi:thermostat-off
     # Climate entities use mode-specific configuration:
-    color_off: grey
+    icon_color_off: grey
     template_off: grey
     template_heat: red
     template_cool: lightblue

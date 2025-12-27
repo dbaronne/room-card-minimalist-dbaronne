@@ -503,11 +503,13 @@ class RoomCard extends LitElement {
 
 		// Override with explicit colors if provided
 		if (state === 'on') {
-			if (item.color_on) result.icon_color = item.color_on;
+			if (item.icon_color_on) result.icon_color = item.icon_color_on;
 			if (item.background_color_on) result.background_color = item.background_color_on;
+			if (item.value_color_on) result.text_color = item.value_color_on;
 		} else {
-			if (item.color_off) result.icon_color = item.color_off;
+			if (item.icon_color_off) result.icon_color = item.icon_color_off;
 			if (item.background_color_off) result.background_color = item.background_color_off;
+			if (item.value_color_off) result.text_color = item.value_color_off;
 		}
 
 		return result;
@@ -760,6 +762,7 @@ class RoomCard extends LitElement {
 	// Get the state icon for an item
 	_getItemHTML(item) {
 		let stateValue = '';
+		let templateValue = '';
 		let stateIsOn = false;
 		let currentHvacMode = null;
 
@@ -785,7 +788,7 @@ class RoomCard extends LitElement {
 			return this._renderInvalidEntity();
 		}
 
-		const { icon_color, background_color } = this._applyTemplates(
+		const { icon_color, text_color, background_color } = this._applyTemplates(
 			item,
 			stateIsOn ? 'on' : 'off',
 			currentHvacMode
@@ -793,12 +796,14 @@ class RoomCard extends LitElement {
 
 		// Get actual color from light entity if use_light_color is enabled
 		let finalIconColor = icon_color;
+		let finalValueColor = text_color;
 		let finalBackgroundColor = background_color;
 		if (item.use_light_color && stateIsOn && item.type === 'entity') {
 			const entityState = this.hass.states[item.entity];
 			if (entityState && entityState.attributes.rgb_color) {
 				const [r, g, b] = entityState.attributes.rgb_color;
 				finalIconColor = `rgb(${r}, ${g}, ${b})`;
+				finalValueColor = `rgb(${r}, ${g}, ${b})`;
 				// Create a darker/transparent background color similar to color templates
 				finalBackgroundColor = `rgba(${r}, ${g}, ${b}, 0.2)`;
 			}
@@ -817,9 +822,18 @@ class RoomCard extends LitElement {
 			// For regular entities, use on/off logic
 			icon = stateIsOn ? item.icon : item.icon_off ? item.icon_off : item.icon;
 		}
-		const iconClass = !stateIsOn ? 'off' : 'on';
+		const stateClass = !stateIsOn ? 'off' : 'on';
 
 		const isItemClickable = this._isItemClickable(item);
+
+		const stateValueHtml = html`
+			<span 
+				class="state-value ${stateClass}"
+				style="color: ${finalValueColor}"
+			>
+				${stateValue}
+			</span>
+		`;
 
 		return html`
 			<ha-card
@@ -836,10 +850,11 @@ class RoomCard extends LitElement {
 				style="background-color: ${finalBackgroundColor}"
 			>
 				<ha-icon
-					class="state-icon ${iconClass}"
+					class="state-icon ${stateClass}"
 					.icon=${icon}
 					style="color: ${finalIconColor}"
-				/>
+				></ha-icon>
+				${item.display_value ? stateValueHtml : ""}
 			</ha-card>
 		`;
 	}
@@ -1010,6 +1025,8 @@ class RoomCard extends LitElement {
 				--icon-background-size: 126px;
 				--state-icon-size: 18px;
 				--state-item-size-height: 36px;
+				--state-font-weight: bold;
+				--state-font-size: 12px;
 				--card-primary-font-size: 18px;
 				--card-primary-font-weight: 600;
 				--card-primary-line-height: 1.3;
@@ -1187,9 +1204,13 @@ class RoomCard extends LitElement {
 				display: flex;
 				flex-direction: column;
 				gap:8px;
-				align-items: center;
+				align-items: flex-end;
 				height: 168px;
 				justify-content: flex-start;
+			}
+
+			.states ha-card {
+				width: fit-content;
 			}
 
 			.states-reverse {
@@ -1234,6 +1255,23 @@ class RoomCard extends LitElement {
 			}
 
 			.state-icon.off {
+				color: var(--secondary-text-color);
+			}
+
+			.state-value {
+				transition: color 0.2s ease;
+				color: var(--primary-text-color);
+				font-weight: var(--state-font-weight);
+				font-size: var(--state-font-size);
+				line-height: 1;
+				padding-left:4px;
+			}
+
+			.state-value.on {
+				color: var(--primary-color);
+			}
+
+			.state-value.off {
 				color: var(--secondary-text-color);
 			}
 

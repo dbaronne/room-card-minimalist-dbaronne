@@ -498,13 +498,29 @@ class RoomCardEditor extends LitElement {
 							name: '',
 							schema: [
 								{
-									name: 'color_on',
-									label: localize(this.hass, 'color_on', 'Color (On)'),
+									name: 'icon_color_on',
+									label: localize(this.hass, 'icon_color_on', 'Icon Color (On)'),
 									selector: { text: {} },
 								},
 								{
-									name: 'color_off',
-									label: localize(this.hass, 'color_off', 'Color (Off)'),
+									name: 'icon_color_off',
+									label: localize(this.hass, 'icon_color_off', 'Icon Color (Off)'),
+									selector: { text: {} },
+								},
+							],
+						},
+						{
+							type: 'grid',
+							name: '',
+							schema: [
+								{
+									name: 'value_color_on',
+									label: localize(this.hass, 'value_color_on', 'Value Color (On)'),
+									selector: { text: {} },
+								},
+								{
+									name: 'value_color_off',
+									label: localize(this.hass, 'value_color_off', 'Value Color (Off)'),
 									selector: { text: {} },
 								},
 							],
@@ -582,6 +598,15 @@ class RoomCardEditor extends LitElement {
 							) || 'Hold Action',
 						selector: { 'ui-action': {} },
 					},
+					{
+							name: 'display_value',
+							label: localize(
+								this.hass,
+								'display_value',
+								'Display value ?'
+							),
+							selector: { boolean: {} },
+						},
 				],
 			},
 			...(this._isLightEntity(item)
