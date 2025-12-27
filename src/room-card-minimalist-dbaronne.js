@@ -1006,10 +1006,10 @@ class RoomCard extends LitElement {
 		return css`
 			:host {
 				--main-color: rgb(var(--rgb-grey));
-				--icon-size: 80px;
-				--icon-background-size: 175px;
-				--state-icon-size: 1.8rem;
-				--state-item-size: 45px;
+				--icon-size: 84px;
+				--icon-background-size: 126px;
+				--state-icon-size: 16px;
+				--state-item-size-height: 36px;
 				--card-primary-font-size: 18px;
 				--card-primary-font-weight: 600;
 				--card-primary-line-height: 1.3;
@@ -1018,7 +1018,7 @@ class RoomCard extends LitElement {
 				--card-secondary-line-height: 1.2;
 				--spacing: 8px;
 				--border-radius: 12px;
-				--state-border-radius: 50%;
+				--state-border-radius: 19px;
 
 				/* Home Assistant card defaults */
 				box-sizing: border-box;
@@ -1031,7 +1031,7 @@ class RoomCard extends LitElement {
 				box-shadow: var(--ha-card-box-shadow, var(--material-shadow-elevation-2));
 				transition: box-shadow 0.3s ease;
 				display: block;
-				height: 236px;
+				height: 184px;
 			}
 			:host(:has(.clickable)):hover {
 				box-shadow: var(--material-shadow-elevation-4);
@@ -1061,12 +1061,13 @@ class RoomCard extends LitElement {
 				display: flex;
 				align-items: stretch;
 				justify-content: space-between;
-				padding: 16px 8px 16px 16px;
-				height: 204px; /* 236px - 32px padding = 204px */
+				padding: 8px 0px 8px 8px;
+				height: 152px; /* 184px - 32px padding = 152px */
 				position: relative;
 				z-index: 2;
 				/* Ensure background circle can overflow */
 				overflow: visible;
+				gap:12px;
 			}
 
 			.content-main {
@@ -1087,7 +1088,9 @@ class RoomCard extends LitElement {
 			}
 
 			.icon-container {
-				position: relative;
+				position: absolute;
+				top: 100px;
+				left: 8px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -1101,9 +1104,6 @@ class RoomCard extends LitElement {
 
 			.icon-background {
 				position: absolute;
-				/* Position the large circle to overflow bottom-left */
-				top: calc(var(--icon-size) / 2 - var(--icon-background-size) / 2);
-				left: calc(var(--icon-size) / 2 - var(--icon-background-size) / 2);
 				width: var(--icon-background-size);
 				height: var(--icon-background-size);
 				border-radius: 50%;
@@ -1132,6 +1132,8 @@ class RoomCard extends LitElement {
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				left: 0px;
+				bottom: 0px;
 				width: var(--icon-size);
 				height: var(--icon-size);
 			}
@@ -1152,8 +1154,7 @@ class RoomCard extends LitElement {
 				line-height: var(--card-primary-line-height);
 				color: var(--primary-text-color);
 				text-overflow: ellipsis;
-				overflow: hidden;
-				white-space: nowrap;
+				overflow: auto;
 				margin-bottom: 6px;
 			}
 
@@ -1178,18 +1179,17 @@ class RoomCard extends LitElement {
 
 			.content-right {
 				display: flex;
-				align-items: center;
+				align-items: start;
 				flex-shrink: 0;
 			}
 
 			.states {
 				display: flex;
 				flex-direction: column;
-				gap: 12px;
+				gap:8px;
 				align-items: center;
-				height: 236px;
+				height: 168px;
 				justify-content: flex-start;
-				padding-top: 20px;
 			}
 
 			.states-reverse {
@@ -1202,9 +1202,9 @@ class RoomCard extends LitElement {
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				width: var(--state-item-size);
-				height: var(--state-item-size);
-				border-radius: var(--state-border-radius);
+				height: var(--state-item-size-height);
+				border-radius: var(--state-border-radius) 0 0 var(--state-border-radius);
+				padding: 0px 12px;
 				transition: all 0.2s ease;
 				position: relative;
 				z-index: 1;
@@ -1251,39 +1251,6 @@ class RoomCard extends LitElement {
 
 				.icon-background {
 					opacity: 0.3;
-				}
-			}
-
-			/* Responsive adjustments */
-			@media (max-width: 768px) {
-				:host {
-					height: 200px;
-					--icon-size: 60px;
-					--icon-background-size: 140px;
-					--state-item-size: 38px;
-					--state-icon-size: 1.4rem;
-				}
-
-				.container {
-					padding: 12px 6px 12px 12px;
-					height: 176px; /* 200px - 24px padding = 176px */
-				}
-
-				.states {
-					height: 176px;
-					padding-top: 0;
-					gap: 8px;
-				}
-
-				.states-reverse {
-					padding-bottom: 0;
-				}
-
-				.icon-background-square {
-					width: 115px !important;
-					height: 115px !important;
-					top: -45px !important;
-					left: -13px !important;
 				}
 			}
 		`;
