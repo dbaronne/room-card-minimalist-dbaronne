@@ -1164,5 +1164,5 @@ window.customCards.push({
 	name: 'Room Card Minimalist',
 	preview: true,
 	description: 'Display the state of a room at a glance - in UI Lovelace Minimalist style',
-	documentationURL: 'https://github.com/unbekannt3/room-card-minimalist-dbaronne',
+	documentationURL: 'https://github.com/dbaronne/room-card-minimalist-dbaronne',
 });

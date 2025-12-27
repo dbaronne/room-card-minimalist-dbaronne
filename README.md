@@ -8,8 +8,8 @@
 ![build][build-badge]
 [![license][license-badge]][license-url]
 
-![Card - Dark Theme](https://github.com/unbekannt3/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-dark.png?raw=true)
-![Card - Light Theme](https://github.com/unbekannt3/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-light.png?raw=true)
+![Card - Dark Theme](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-dark.png?raw=true)
+![Card - Light Theme](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-light.png?raw=true)
 
 ## What is Room Card Minimalist
 
@@ -23,7 +23,7 @@ It provides a fixed size card with a room name, styled icon, and optional second
 
 Room Card is available in [HACS][hacs] (Home Assistant Community Store):
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=unbekannt3&repository=room-card-minimalist-dbaronne)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=dbaronne&repository=room-card-minimalist-dbaronne)
 
 or search for "room-card-minimalist-dbaronne" in HACS.
 
@@ -230,7 +230,7 @@ The following color templates are available for `card_template`, `template_on`, 
 | `teal`        | ![#009688](https://dummyimage.com/15/009688/009688) Teal        | Teal color scheme `#009688`         |
 | `indigo`      | ![#3F51B5](https://dummyimage.com/15/3f51b5/3f51b5) Indigo      | Indigo color scheme `#3F51B5`       |
 
-These templates use CSS variables that can be customized in your Home Assistant theme. If UI Lovelace Minimalist or another theme is installed which provides the `--color-*` variables, the templates will use these colors. Otherwise, fallback colors are provided (see [src/room-card-minimalist-dbaronne.js](https://github.com/unbekannt3/room-card-minimalist-dbaronne/blob/main/src/room-card-minimalist-dbaronne.js) => const COLOR_TEMPLATES for details).
+These templates use CSS variables that can be customized in your Home Assistant theme. If UI Lovelace Minimalist or another theme is installed which provides the `--color-*` variables, the templates will use these colors. Otherwise, fallback colors are provided (see [src/room-card-minimalist-dbaronne.js](https://github.com/dbaronne/room-card-minimalist-dbaronne/blob/main/src/room-card-minimalist-dbaronne.js) => const COLOR_TEMPLATES for details).
 
 ### YAML Example
 
@@ -368,16 +368,16 @@ For local development make sure to have at least Node 22 installed (earlier vers
 [homeassistant]: https://img.shields.io/badge/home%20assistant-%2341BDF5.svg?style=flat-square&logo=home-assistant&logoColor=white
 [hacs-url]: https://github.com/hacs/integration
 [hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
-[release-badge]: https://img.shields.io/github/v/release/unbekannt3/room-card-minimalist-dbaronne?style=flat-square
-[prerelease-badge]: https://img.shields.io/github/v/release/unbekannt3/room-card-minimalist-dbaronne?include_prereleases&style=flat-square&label=prerelease
-[downloads-badge]: https://img.shields.io/github/downloads/unbekannt3/room-card-minimalist-dbaronne/total?style=flat-square
-[build-badge]: https://img.shields.io/github/actions/workflow/status/unbekannt3/room-card-minimalist-dbaronne/build.yaml?branch=main&style=flat-square
-[license-badge]: https://img.shields.io/github/license/unbekannt3/room-card-minimalist-dbaronne?style=flat-square&logo=opensourceinitiative&logoColor=white&color=0080ff
+[release-badge]: https://img.shields.io/github/v/release/dbaronne/room-card-minimalist-dbaronne?style=flat-square
+[prerelease-badge]: https://img.shields.io/github/v/release/dbaronne/room-card-minimalist-dbaronne?include_prereleases&style=flat-square&label=prerelease
+[downloads-badge]: https://img.shields.io/github/downloads/dbaronne/room-card-minimalist-dbaronne/total?style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/dbaronne/room-card-minimalist-dbaronne/build.yaml?branch=main&style=flat-square
+[license-badge]: https://img.shields.io/github/license/dbaronne/room-card-minimalist-dbaronne?style=flat-square&logo=opensourceinitiative&logoColor=white&color=0080ff
 
 <!-- References -->
 
 [home-assistant]: https://www.home-assistant.io/
 [home-assitant-theme-docs]: https://www.home-assistant.io/integrations/frontend/#defining-themes
 [hacs]: https://hacs.xyz
-[release-url]: https://github.com/unbekannt3/room-card-minimalist-dbaronne/releases
-[license-url]: https://github.com/unbekannt3/room-card-minimalist-dbaronne/blob/main/LICENSE
+[release-url]: https://github.com/dbaronne/room-card-minimalist-dbaronne/releases
+[license-url]: https://github.com/dbaronne/room-card-minimalist-dbaronne/blob/main/LICENSE
