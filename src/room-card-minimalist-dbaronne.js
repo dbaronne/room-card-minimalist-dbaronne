@@ -140,12 +140,14 @@ class RoomCard extends LitElement {
 			secondary: '',
 			secondary_color: 'var(--secondary-text-color)',
 			secondary_entity: '',
-			entities: [],
+			right_entities: [],
+			top_entities: [],
 			background_type: migratedBackgroundType,
 			background_image: '',
 			background_person_entity: '',
 			background_image_square: false,
-			entities_reverse_order: false,
+			right_entities_reverse_order: false,
+			top_entities_reverse_order: false,
 			use_template_color_for_title: false,
 			use_template_color_for_secondary: false,
 			secondary_allow_html: false,
@@ -205,7 +207,7 @@ class RoomCard extends LitElement {
 			},
 			use_template_color_for_title: true,
 			use_template_color_for_secondary: true,
-			entities: [
+			right_entities: [
 				{
 					type: 'template',
 					icon: 'mdi:ceiling-light',
@@ -298,10 +300,15 @@ class RoomCard extends LitElement {
 	render() {
 		const secondary = this._getValueRawOrTemplate(this._config.secondary);
 		const secondaryColor = this._getValueRawOrTemplate(this._config.secondary_color);
-		let entitiesToShow = this._config.entities.slice(0, 4);
+		let rightEntitiesToShow = this._config.right_entities.slice(0, 4);
+		let topEntitiesToShow = this._config.top_entities.slice(0, 4);
 
-		if (this._config.entities_reverse_order) {
-			entitiesToShow = [...entitiesToShow].reverse();
+		if (this._config.right_entities_reverse_order) {
+			rightEntitiesToShow = [...rightEntitiesToShow].reverse();
+		}
+
+		if (this._config.top_entities_reverse_order) {
+			topEntitiesToShow = [...topEntitiesToShow].reverse();
 		}
 
 		const { background_circle_color, icon_color, text_color } = this._applyCardTemplate();
@@ -396,6 +403,17 @@ class RoomCard extends LitElement {
 											>${secondary}</span
 										>`
 								: ''}
+							<div class="content-top">
+								<div
+									class="top-states ${this._config.top_entities_reverse_order
+										? 'states-reverse'
+										: ''}"
+								>
+									${topEntitiesToShow.map((item) => {
+										return this._getItemHTML(item);
+									})}
+								</div>
+							</div>
 						</div>
 
 						<div class="icon-container">
@@ -436,11 +454,11 @@ class RoomCard extends LitElement {
 
 					<div class="content-right">
 						<div
-							class="states ${this._config.entities_reverse_order
+							class="right-states ${this._config.right_entities_reverse_order
 								? 'states-reverse'
 								: ''}"
 						>
-							${entitiesToShow.map((item) => {
+							${rightEntitiesToShow.map((item) => {
 								return this._getItemHTML(item);
 							})}
 						</div>
@@ -1204,7 +1222,26 @@ class RoomCard extends LitElement {
 				flex-shrink: 0;
 			}
 
-			.states {
+			.content-top {
+				display: flex;
+				align-items: start;
+				flex-shrink: 0;
+			}
+
+			.top-states {
+				display: flex;
+				flex-direction: row;
+				gap:8px;
+				align-items: flex-start;
+				width: 168px;
+				justify-content: flex-start;
+			}
+
+			.top-states ha-card {
+				width: fit-content;
+			}
+
+			.right-states {
 				display: flex;
 				flex-direction: column;
 				gap:8px;
@@ -1213,7 +1250,7 @@ class RoomCard extends LitElement {
 				justify-content: flex-start;
 			}
 
-			.states ha-card {
+			.right-states ha-card {
 				width: fit-content;
 			}
 
@@ -1223,12 +1260,25 @@ class RoomCard extends LitElement {
 				padding-bottom: 20px;
 			}
 
-			.state-item {
+			.right-states .state-item {
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				height: var(--state-item-size-height);
 				border-radius: var(--state-border-radius) 0 0 var(--state-border-radius);
+				padding: 0px 9px;
+				transition: all 0.2s ease;
+				position: relative;
+				z-index: 1;
+				border: none;
+			}
+
+			.top-states .state-item {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: var(--state-item-size-height);
+				border-radius: var(--state-border-radius);
 				padding: 0px 9px;
 				transition: all 0.2s ease;
 				position: relative;

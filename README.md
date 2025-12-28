@@ -10,6 +10,10 @@
 
 ![Card - Dark Theme](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-dark.png?raw=true)
 ![Card - Light Theme](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-light.png?raw=true)
+![Card - Default](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/card-default.png?raw=true)
+![Card - With Value](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-with-value.png?raw=true)
+![Card - With HTML](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/card-with-html.png?raw=true)
+![Card - With Top Entities](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/card-with-top-entities.png?raw=true)
 
 ## What is Room Card Minimalist
 
@@ -66,10 +70,12 @@ The editor is supported, but if you want to use `yaml`, here are the properties:
 | `background_image_square`          | boolean | Optional | Makes background image square when `background_type` is `image` or `person`.                                                                                                       |
 | `tap_action`                       | object  | Optional | Action to perform on tap. See [Home Assistant actions](https://www.home-assistant.io/dashboards/actions/).                                                                         |
 | `hold_action`                      | object  | Optional | Action to perform on hold. See [Home Assistant actions](https://www.home-assistant.io/dashboards/actions/).                                                                        |
-| `entities_reverse_order`           | boolean | `false`  | Display entities from bottom to top instead of top to bottom.                                                                                                                      |
+| `right_entities_reverse_order`           | boolean | `false`  | Display right entities from bottom to top instead of top to bottom.                                                                                                                      |
+| `top_entities_reverse_order`           | boolean | `false`  | Display top entities from right to left instead of left to right.                                                                                                                      |
 | `use_template_color_for_title`     | boolean | `false`  | Use the card template color for the room title text.                                                                                                                               |
 | `use_template_color_for_secondary` | boolean | `false`  | Use the card template color for the secondary text/template.                                                                                                                       |
-| `entities`                         | list    | Optional | List of entities to display as buttons (max 4).                                                                                                                                    |
+| `right_entities`                         | list    | Optional | List of right entities to display as buttons (max 4).                                                                                                                                    |
+| `top_entities`                         | list    | Optional | List of top entities to display as buttons (max 4).                                                                                                                                    |
 
 ### Background Type Options
 

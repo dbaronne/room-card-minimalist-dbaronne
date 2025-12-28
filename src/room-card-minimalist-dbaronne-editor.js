@@ -180,7 +180,8 @@ class RoomCardEditor extends LitElement {
 
 		this._config = {
 			background_type: migratedBackgroundType,
-			entities: [],
+			right_entities: [],
+			top_entities: [],
 			...config,
 		};
 		this._currentTab = 0;
@@ -226,38 +227,73 @@ class RoomCardEditor extends LitElement {
 		}
 	}
 
-	_deleteStateEntity(idx) {
+	_deleteRightStateEntity(idx) {
 		if (!this._config) return;
 
-		const entities = [...this._config.entities];
-		entities.splice(idx, 1);
+		const right_entities = [...this._config.right_entities];
+		right_entities.splice(idx, 1);
 
-		this._config = { ...this._config, entities };
+		this._config = { ...this._config, right_entities };
 		this.dispatchEvent(new CustomEvent('config-changed', { detail: { config: this._config } }));
 	}
 
-	_moveStateEntity(idx, pos) {
+	_deleteTopStateEntity(idx) {
 		if (!this._config) return;
 
-		const entities = [...this._config.entities];
-		[entities[idx], entities[idx + pos]] = [entities[idx + pos], entities[idx]];
+		const top_entities = [...this._config.top_entities];
+		top_entities.splice(idx, 1);
 
-		this._config = { ...this._config, entities };
+		this._config = { ...this._config, top_entities };
 		this.dispatchEvent(new CustomEvent('config-changed', { detail: { config: this._config } }));
 	}
 
-	_addEntityState() {
+	_moveRightStateEntity(idx, pos) {
 		if (!this._config) return;
 
-		// Prevent adding more than 4 entities
-		if (this._config.entities && this._config.entities.length >= 4) {
+		const right_entities = [...this._config.right_entities];
+		[right_entities[idx], right_entities[idx + pos]] = [right_entities[idx + pos], right_entities[idx]];
+
+		this._config = { ...this._config, right_entities };
+		this.dispatchEvent(new CustomEvent('config-changed', { detail: { config: this._config } }));
+	}
+
+	_moveTopStateEntity(idx, pos) {
+		if (!this._config) return;
+
+		const top_entities = [...this._config.top_entities];
+		[top_entities[idx], top_entities[idx + pos]] = [top_entities[idx + pos], top_entities[idx]];
+
+		this._config = { ...this._config, top_entities };
+		this.dispatchEvent(new CustomEvent('config-changed', { detail: { config: this._config } }));
+	}
+
+	_addRightEntityState() {
+		if (!this._config) return;
+
+		// Prevent adding more than 4 right_entities
+		if (this._config.right_entities && this._config.right_entities.length >= 4) {
 			return;
 		}
 
-		const entities = [...this._config.entities];
-		entities.push({ type: 'template' });
+		const right_entities = [...this._config.right_entities];
+		right_entities.push({ type: 'template' });
 
-		this._config = { ...this._config, entities };
+		this._config = { ...this._config, right_entities };
+		this.dispatchEvent(new CustomEvent('config-changed', { detail: { config: this._config } }));
+	}
+
+	_addTopEntityState() {
+		if (!this._config) return;
+
+		// Prevent adding more than 4 top_entities
+		if (this._config.top_entities && this._config.top_entities.length >= 4) {
+			return;
+		}
+
+		const top_entities = [...this._config.top_entities];
+		top_entities.push({ type: 'template' });
+
+		this._config = { ...this._config, top_entities };
 		this.dispatchEvent(new CustomEvent('config-changed', { detail: { config: this._config } }));
 	}
 
@@ -314,7 +350,7 @@ class RoomCardEditor extends LitElement {
 		}
 	}
 
-	_handleDrop(ev, dropIndex) {
+	_handleRightStateDrop(ev, dropIndex) {
 		ev.preventDefault();
 
 		const dropTarget = ev.target.closest('.box');
@@ -326,15 +362,15 @@ class RoomCardEditor extends LitElement {
 
 		if (dragIndex === dropIndex) return;
 
-		const entities = [...this._config.entities];
-		const draggedEntity = entities[dragIndex];
+		const right_entities = [...this._config.right_entities];
+		const draggedEntity = right_entities[dragIndex];
 
 		// Remove the dragged entity
-		entities.splice(dragIndex, 1);
+		right_entities.splice(dragIndex, 1);
 		// Insert it at the new position
-		entities.splice(dropIndex, 0, draggedEntity);
+		right_entities.splice(dropIndex, 0, draggedEntity);
 
-		this._config = { ...this._config, entities };
+		this._config = { ...this._config, right_entities };
 		this.dispatchEvent(new CustomEvent('config-changed', { detail: { config: this._config } }));
 	}
 
@@ -430,15 +466,33 @@ class RoomCardEditor extends LitElement {
 		});
 		this.dispatchEvent(event);
 	}
-	_valueChangedEntity(entity, ev) {
+	_valueChangedRightEntity(entity, ev) {
 		if (!this._config || !this.hass) {
 			return;
 		}
 
-		const entities = [...this._config.entities];
-		entities[entity] = ev.detail.value;
+		const right_entities = [...this._config.right_entities];
+		right_entities[entity] = ev.detail.value;
 
-		this._config = { ...this._config, entities };
+		this._config = { ...this._config, right_entities };
+
+		const event = new CustomEvent('config-changed', {
+			detail: { config: this._config },
+			bubbles: true,
+			composed: true,
+		});
+		this.dispatchEvent(event);
+	}
+
+	_valueChangedTopEntity(entity, ev) {
+		if (!this._config || !this.hass) {
+			return;
+		}
+
+		const top_entities = [...this._config.top_entities];
+		top_entities[entity] = ev.detail.value;
+
+		this._config = { ...this._config, top_entities };
 
 		const event = new CustomEvent('config-changed', {
 			detail: { config: this._config },
@@ -689,19 +743,19 @@ class RoomCardEditor extends LitElement {
 		];
 	}
 
-	_renderEntities() {
-		if (this._config.entities === undefined) {
-			this._config = { ...this._config, entities: [] };
+	_renderRightEntities() {
+		if (this._config.right_entities === undefined) {
+			this._config = { ...this._config, right_entities: [] };
 		}
 
 		return html`
-			${this._config.entities?.map(
+			${this._config.right_entities?.map(
 				(entity, entity_idx) => html`
 					<div
 						class="box"
 						@dragover=${this._handleDragOver}
 						@dragleave=${this._handleDragLeave}
-						@drop=${(ev) => this._handleDrop(ev, entity_idx)}
+						@drop=${(ev) => this._handleRightStateDrop(ev, entity_idx)}
 					>
 						<div class="entity-header">
 							<div class="entity-info">
@@ -723,21 +777,21 @@ class RoomCardEditor extends LitElement {
 							<div class="entity-controls">
 								<mwc-icon-button
 									.disabled=${entity_idx === 0}
-									@click=${() => this._moveStateEntity(entity_idx, -1)}
+									@click=${() => this._moveRightStateEntity(entity_idx, -1)}
 									title="${localize(this.hass, 'move_up', 'Move Up')}"
 								>
 									<ha-icon .icon=${'mdi:arrow-up'}></ha-icon>
 								</mwc-icon-button>
 								<mwc-icon-button
 									.disabled=${entity_idx ===
-									(this._config.entities?.length || 0) - 1}
-									@click=${() => this._moveStateEntity(entity_idx, 1)}
+									(this._config.right_entities?.length || 0) - 1}
+									@click=${() => this._moveRightStateEntity(entity_idx, 1)}
 									title="${localize(this.hass, 'move_down', 'Move Down')}"
 								>
 									<ha-icon .icon=${'mdi:arrow-down'}></ha-icon>
 								</mwc-icon-button>
 								<mwc-icon-button
-									@click=${() => this._deleteStateEntity(entity_idx)}
+									@click=${() => this._deleteRightStateEntity(entity_idx)}
 									title="${localize(this.hass, 'delete', 'Delete')}"
 								>
 									<ha-icon .icon=${'mdi:close'}></ha-icon>
@@ -750,7 +804,76 @@ class RoomCardEditor extends LitElement {
 							.schema=${this._getEntitySchema(entity)}
 							.data=${entity}
 							.computeLabel=${(s) => s.label ?? s.name}
-							@value-changed=${(ev) => this._valueChangedEntity(entity_idx, ev)}
+							@value-changed=${(ev) => this._valueChangedRightEntity(entity_idx, ev)}
+						></ha-form>
+					</div>
+				`
+			)}
+		`;
+	}
+
+	_renderTopEntities() {
+		if (this._config.top_entities === undefined) {
+			this._config = { ...this._config, top_entities: [] };
+		}
+
+		return html`
+			${this._config.top_entities?.map(
+				(entity, entity_idx) => html`
+					<div
+						class="box"
+						@dragover=${this._handleDragOver}
+						@dragleave=${this._handleDragLeave}
+						@drop=${(ev) => this._handleTopStateDrop(ev, entity_idx)}
+					>
+						<div class="entity-header">
+							<div class="entity-info">
+								<ha-icon
+									.icon=${'mdi:drag'}
+									class="drag-handle"
+									draggable="true"
+									@dragstart=${(ev) => this._handleDragStart(ev, entity_idx)}
+									@dragend=${this._handleDragEnd}
+								></ha-icon>
+								<ha-icon
+									.icon=${this._getEntityIcon(entity)}
+									class="entity-icon"
+								></ha-icon>
+								<span class="entity-title">
+									${this._getEntityDisplayName(entity, entity_idx)}
+								</span>
+							</div>
+							<div class="entity-controls">
+								<mwc-icon-button
+									.disabled=${entity_idx === 0}
+									@click=${() => this._moveTopStateEntity(entity_idx, -1)}
+									title="${localize(this.hass, 'move_up', 'Move Up')}"
+								>
+									<ha-icon .icon=${'mdi:arrow-up'}></ha-icon>
+								</mwc-icon-button>
+								<mwc-icon-button
+									.disabled=${entity_idx ===
+									(this._config.top_entities?.length || 0) - 1}
+									@click=${() => this._moveTopStateEntity(entity_idx, 1)}
+									title="${localize(this.hass, 'move_down', 'Move Down')}"
+								>
+									<ha-icon .icon=${'mdi:arrow-down'}></ha-icon>
+								</mwc-icon-button>
+								<mwc-icon-button
+									@click=${() => this._deleteTopStateEntity(entity_idx)}
+									title="${localize(this.hass, 'delete', 'Delete')}"
+								>
+									<ha-icon .icon=${'mdi:close'}></ha-icon>
+								</mwc-icon-button>
+							</div>
+						</div>
+
+						<ha-form
+							.hass=${this.hass}
+							.schema=${this._getEntitySchema(entity)}
+							.data=${entity}
+							.computeLabel=${(s) => s.label ?? s.name}
+							@value-changed=${(ev) => this._valueChangedTopEntity(entity_idx, ev)}
 						></ha-form>
 					</div>
 				`
@@ -936,11 +1059,20 @@ class RoomCardEditor extends LitElement {
 					},
 					...this._getBackgroundSchema(),
 					{
-						name: 'entities_reverse_order',
+						name: 'right_entities_reverse_order',
 						label: localize(
 							this.hass,
-							'entities_reverse_order',
-							'Reverse Entity Order'
+							'right_entities_reverse_order',
+							'Reverse Right Entity Order'
+						),
+						selector: { boolean: {} },
+					},
+					{
+						name: 'top_entities_reverse_order',
+						label: localize(
+							this.hass,
+							'top_entities_reverse_order',
+							'Reverse Top Entity Order'
 						),
 						selector: { boolean: {} },
 					},
@@ -950,36 +1082,68 @@ class RoomCardEditor extends LitElement {
 			></ha-form>
 
 			<div style="display: flex;justify-content: space-between; margin-top: 20px;">
-				<p>${localize(this.hass, 'states', 'States')}</p>
-				${this._config.entities && this._config.entities.length >= 4
+				<p>${localize(this.hass, 'right_states', 'Right States')}</p>
+				${this._config.right_entities && this._config.right_entities.length >= 4
 					? html`<mwc-button
 							style="margin-top: 5px; cursor: not-allowed;"
 							disabled
 							title="${localize(
 								this.hass,
-								'maximum_states_reached',
-								'Maximum 4 states reached'
+								'maximum_right_states_reached',
+								'Maximum 4 right states reached'
 							)}"
 						>
 							<ha-icon .icon=${'mdi:plus'}></ha-icon>${localize(
 								this.hass,
-								'add_state',
-								'Add State'
+								'add_right_state',
+								'Add Right State'
 							)}
 						</mwc-button>`
 					: html`<mwc-button
 							style="margin-top: 5px; cursor: pointer;"
-							@click=${this._addEntityState}
+							@click=${this._addRightEntityState}
 						>
 							<ha-icon .icon=${'mdi:plus'}></ha-icon>${localize(
 								this.hass,
-								'add_state',
-								'Add State'
+								'add_right_state',
+								'Add Right State'
 							)}
 						</mwc-button>`}
 			</div>
 
-			${this._renderEntities()}
+			${this._renderRightEntities()}
+
+			<div style="display: flex;justify-content: space-between; margin-top: 20px;">
+				<p>${localize(this.hass, 'top_states', 'Top States')}</p>
+				${this._config.top_entities && this._config.top_entities.length >= 4
+					? html`<mwc-button
+							style="margin-top: 5px; cursor: not-allowed;"
+							disabled
+							title="${localize(
+								this.hass,
+								'maximum_top_states_reached',
+								'Maximum 4 top states reached'
+							)}"
+						>
+							<ha-icon .icon=${'mdi:plus'}></ha-icon>${localize(
+								this.hass,
+								'add_top_state',
+								'Add Top State'
+							)}
+						</mwc-button>`
+					: html`<mwc-button
+							style="margin-top: 5px; cursor: pointer;"
+							@click=${this._addTopEntityState}
+						>
+							<ha-icon .icon=${'mdi:plus'}></ha-icon>${localize(
+								this.hass,
+								'add_top_state',
+								'Add Top State'
+							)}
+						</mwc-button>`}
+			</div>
+
+			${this._renderTopEntities()}
 		`;
 	}
 
