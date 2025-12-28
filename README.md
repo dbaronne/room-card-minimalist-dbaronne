@@ -8,18 +8,16 @@
 ![build][build-badge]
 [![license][license-badge]][license-url]
 
-![Card - Dark Theme](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-dark.png?raw=true)
-![Card - Light Theme](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-light.png?raw=true)
-![Card - Default](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/card-default.png?raw=true)
-![Card - With Value](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/cards-with-value.png?raw=true)
-![Card - With HTML](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/card-with-html.png?raw=true)
-![Card - With Top Entities](https://github.com/dbaronne/hass-room-card-minimalist-dbaronne/blob/main/docs/images/card-with-top-entities.png?raw=true)
+![Card - Default](https://github.com/dbaronne/room-card-minimalist-dbaronne/blob/main/docs/images/card-default.png?raw=true)
+![Card - With Value](https://github.com/dbaronne/room-card-minimalist-dbaronne/blob/main/docs/images/card-with-value.png?raw=true)
+![Card - With HTML](https://github.com/dbaronne/room-card-minimalist-dbaronne/blob/main/docs/images/card-with-html.png?raw=true)
+![Card - With Top Entities](https://github.com/dbaronne/room-card-minimalist-dbaronne/blob/main/docs/images/card-with-top-entities.png?raw=true)
 
-## What is Room Card Minimalist
+## What is Room Card Minimalist Dbaronne
 
-Room Card Minimalist is based on [patrickfnielsen/hass-room-card](https://github.com/patrickfnielsen/hass-room-card) but extensively redesigned with added functionality in the style of the [room-card from UI Lovelace Minimalist](https://ui-lovelace-minimalist.github.io/UI/usage/cards/card_room/) which I've used in the past and missed ever since for "normal" Lovelace setups.
+Room Card Minimalist Dbaronne is based on [unbekannt3/room-card-minimalist](https://github.com/unbekannt3/room-card-minimalist).
 
-It provides a fixed size card with a room name, styled icon, and optional secondary info. You can configure up to 4 entities or templates to be displayed as buttons with icons that change based on the entity/template state.
+It provides a fixed size card with a room name, styled icon, and optional secondary info. You can configure up to 4 right entities or templates and up to 4 top entities or template to be displayed as buttons with icons and/or value that change based on the entity/template state.
 
 ## Installation
 
@@ -204,6 +202,8 @@ secondary_hold_action:
 | `use_light_color`      | boolean | `false`  | For light entities: use the actual light color as the active state color.                                                    |
 | `tap_action`           | object  | Optional | Action to perform on tap. See [Home Assistant actions](https://www.home-assistant.io/dashboards/actions/).                   |
 | `hold_action`          | object  | Optional | Action to perform on hold. See [Home Assistant actions](https://www.home-assistant.io/dashboards/actions/).                  |
+| `display_value`          | object  | Optional | Enable to display value of entity or template after icon                  |
+| `value_allow_html`          | object  | Optional | Enable to allow html in value (need to have display value enable too)                  |
 
 ### Climate Entity Configuration
 
