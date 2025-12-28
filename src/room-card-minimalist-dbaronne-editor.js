@@ -599,14 +599,23 @@ class RoomCardEditor extends LitElement {
 						selector: { 'ui-action': {} },
 					},
 					{
-							name: 'display_value',
-							label: localize(
-								this.hass,
-								'display_value',
-								'Display value ?'
-							),
-							selector: { boolean: {} },
-						},
+						name: 'display_value',
+						label: localize(
+							this.hass,
+							'display_value',
+							'Display value ?'
+						),
+						selector: { boolean: {} },
+					},
+					{
+						name: 'value_allow_html',
+						label: localize(
+							this.hass,
+							'value_allow_html',
+							'Allow HTML in value'
+						),
+						selector: { boolean: {} },
+					},
 				],
 			},
 			...(this._isLightEntity(item)

@@ -466,7 +466,7 @@ class RoomCard extends LitElement {
 
 			let result = {
 				icon_color: 'var(--primary-text-color)',
-				background_color: 'var(--secondary-background-color)',
+				background_color: 'var(--mdc-text-field-fill-color)',
 				text_color: 'var(--primary-text-color)',
 			};
 
@@ -487,7 +487,7 @@ class RoomCard extends LitElement {
 				: item.template_off || item.templates_off;
 		let result = {
 			icon_color: 'var(--primary-text-color)',
-			background_color: 'var(--secondary-background-color)',
+			background_color: 'var(--mdc-text-field-fill-color)',
 			text_color: 'var(--primary-text-color)',
 		};
 
@@ -795,9 +795,9 @@ class RoomCard extends LitElement {
 		);
 
 		// Get actual color from light entity if use_light_color is enabled
-		let finalIconColor = icon_color;
-		let finalValueColor = text_color;
-		let finalBackgroundColor = background_color;
+		let finalIconColor = this._evaluateHaTemplate(icon_color);
+		let finalValueColor = this._evaluateHaTemplate(text_color);
+		let finalBackgroundColor = this._evaluateHaTemplate(background_color);
 		if (item.use_light_color && stateIsOn && item.type === 'entity') {
 			const entityState = this.hass.states[item.entity];
 			if (entityState && entityState.attributes.rgb_color) {
@@ -822,6 +822,7 @@ class RoomCard extends LitElement {
 			// For regular entities, use on/off logic
 			icon = stateIsOn ? item.icon : item.icon_off ? item.icon_off : item.icon;
 		}
+		let finalIcon = this._evaluateHaTemplate(icon);
 		const stateClass = !stateIsOn ? 'off' : 'on';
 
 		const isItemClickable = this._isItemClickable(item);
@@ -831,7 +832,7 @@ class RoomCard extends LitElement {
 				class="state-value ${stateClass}"
 				style="color: ${finalValueColor}"
 			>
-				${stateValue}
+				${item.value_allow_html ? unsafeHTML(stateValue) : stateValue}
 			</span>
 		`;
 
@@ -851,7 +852,7 @@ class RoomCard extends LitElement {
 			>
 				<ha-icon
 					class="state-icon ${stateClass}"
-					.icon=${icon}
+					.icon=${finalIcon}
 					style="color: ${finalIconColor}"
 				></ha-icon>
 				${item.display_value ? stateValueHtml : ""}
@@ -874,6 +875,14 @@ class RoomCard extends LitElement {
 		return this._isTemplate(item)
 			? this._templateResults[item]?.result?.toString()
 			: this.hass.states[item]?.state;
+	}
+
+	_evaluateHaTemplate(item) {
+		if (this._isTemplate(item)) {
+			return this._getValue(item);
+		} else {
+			return item;
+		}
 	}
 
 	// Returns the raw value passed if not a template, otherwise evaluate the template
@@ -1027,11 +1036,11 @@ class RoomCard extends LitElement {
 				--state-item-size-height: 36px;
 				--state-font-weight: bold;
 				--state-font-size: 12px;
-				--card-primary-font-size: 18px;
-				--card-primary-font-weight: 600;
+				--card-primary-font-size: 16px;
+				--card-primary-font-weight: 500;
 				--card-primary-line-height: 1.3;
 				--card-secondary-font-weight: 400;
-				--card-secondary-font-size: 14px;
+				--card-secondary-font-size: 12px;
 				--card-secondary-line-height: 1.2;
 				--spacing: 8px;
 				--border-radius: 12px;
@@ -1107,7 +1116,7 @@ class RoomCard extends LitElement {
 			.icon-container {
 				position: absolute;
 				top: 100px;
-				left: 8px;
+				left: -4px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -1149,7 +1158,7 @@ class RoomCard extends LitElement {
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				left: 0px;
+				left: 8px;
 				bottom: 0px;
 				width: var(--icon-size);
 				height: var(--icon-size);
@@ -1158,11 +1167,6 @@ class RoomCard extends LitElement {
 			.icon ha-icon {
 				--mdc-icon-size: var(--icon-size);
 				color: var(--icon-color);
-				filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-			}
-
-			.icon-background-image ~ .icon ha-icon {
-				filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 			}
 
 			.primary {
@@ -1225,7 +1229,7 @@ class RoomCard extends LitElement {
 				justify-content: center;
 				height: var(--state-item-size-height);
 				border-radius: var(--state-border-radius) 0 0 var(--state-border-radius);
-				padding: 0px 12px;
+				padding: 0px 9px;
 				transition: all 0.2s ease;
 				position: relative;
 				z-index: 1;

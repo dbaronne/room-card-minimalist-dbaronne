@@ -36,6 +36,7 @@
 	"value_color_on": "Value Color (On)",
 	"value_color_off": "Value Color (Off)",
 	"display_value": "Display value ?",
+	"value_allow_html": "Allow HTML in value",
 	"background_color_on": "Background Color (On)",
 	"background_color_off": "Background Color (Off)",
 	"use_light_color": "Use Light Color",

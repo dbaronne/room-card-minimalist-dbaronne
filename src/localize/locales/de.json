@@ -36,6 +36,7 @@
 	"value_color_on": "Wertfarbe (An)",
 	"value_color_off": "Wertfarbe (Aus)",
 	"display_value": "Wert anzeigen?",
+	"value_allow_html": "HTML in wert",
 	"background_color_on": "Hintergrundfarbe (An)",
 	"background_color_off": "Hintergrundfarbe (Aus)",
 	"use_light_color": "Lichtfarbe verwenden",
